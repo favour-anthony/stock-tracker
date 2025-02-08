@@ -1,0 +1,130 @@
+body{
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+:root{
+    --aside-width:18%;
+}
+
+.container{
+    display: grid;
+    grid-template-areas: 
+    "aside header"
+    "aside main";
+    grid-template-columns:var(--aside-width) auto;
+}
+
+aside{
+    grid-area:aside;
+    background-color:white;
+    height: 100vh;
+}
+header{
+    grid-area:header;
+    background-color:white;
+    height: 10vh;
+}
+main{
+    grid-area: main;
+    height: 90vh;
+    background-color: #f5f7f9;
+}
+header input{
+    height: 35px;
+    width: 300px;
+    margin-left: 80px;
+    background-color: #f5f7f9;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    outline-color: #f5f7f9;
+}
+header input::placeholder{
+    padding-left: 30px;
+}
+.board{
+    background-color: #f5f7f9;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+.board div{
+    margin-top: 70px;
+    padding: 12px;
+}
+.menu{
+    margin-left: 30px;
+    margin-top: 30px;
+}
+.menu ul{
+    margin-top: 20px;
+}
+.menu ul li{
+    padding: 10px;
+    list-style: linear-gradient(to top left, #b2e5dc,#f4bec6);
+}
+.support{
+    margin-left: 30px;
+    margin-top: 30px;
+}
+.support ul{
+    margin-top: 20px;
+}
+.support ul li{
+    padding: 10px;
+    list-style: linear-gradient(to top right,#b2e5dc,#f4bec6);
+}
+.stock-p{
+    font-weight: 700;
+    font-size: large;
+    margin-left: 50px;
+    margin-top: 40px;
+}
+.portfolio-img{
+    background-color: white;
+    margin-top: 10px;
+    margin-left: 40px;
+    margin-right: 30px;
+    height: 120px;
+    border-radius: 10px;
+}
+.portfolio-img img{
+    padding-top: 10px;
+    margin-left: 25px;
+}
+.stock-w{
+    font-weight: 700;
+    font-size: large;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+.api-call{
+    display: flex;
+
+}
+#stock-img{
+    background-color: white;
+    margin-top: 10px;
+    margin-left: 40px;
+    margin-right: 30px;
+    height: 300px;
+    width: 700px;
+    border-radius: 10px;
+}
+.stock-details{
+    background-color: white;
+    margin-top: 10px;
+    margin-left: 40px;
+    margin-right: 30px;
+    height: 300px;
+    width:280px;
+    border-radius: 10px;
+}
+.stock-select{
+    padding-top: 20px;
+    margin-left: 30px;
+}
+.stock-item{
+    margin-left: 30px;
+}
