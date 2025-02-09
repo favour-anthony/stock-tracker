@@ -95,6 +95,9 @@ export default function Style() {
         <input type="text" placeholder="Search for stock" />
       </header>
       <aside>
+        <div>
+        <img src="/images/logo.png" alt="Stock Market Overview" width="120" height="100" />
+        </div>
         <div className="board">
           <div>DASHBOARD</div>
         </div>
