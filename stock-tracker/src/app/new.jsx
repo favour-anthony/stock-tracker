@@ -1,22 +1,34 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import { Line } from "react-chartjs-2";
+import { Line,Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
-  LineElement,
   CategoryScale,
   LinearScale,
   PointElement,
+  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
+  Filler,
 } from "chart.js";
 
-// Register Chart.js components
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 export default function Style() {
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });
+  const [barChartData, setBarChartData] = useState({ labels: [], datasets: [] });
   const [stockDetails, setStockDetails] = useState([]); // Store stock details
   const [selectedSymbol, setSelectedSymbol] = useState(""); // Track selected stock
   const [loading, setLoading] = useState(true);
@@ -34,7 +46,7 @@ export default function Style() {
         }
 
         const result = await response.json();
-        const colors = ["#b2e5dc", "#f4bec6", "#a59494", " #6ddbee"]; // Different colors for each stock
+        const colors = ["blue", "#03033d", "blue", "#03033d"]; // Different colors for each stock
 
         if (result) {
           const stockNames = Object.keys(result);
@@ -56,16 +68,21 @@ export default function Style() {
               low: latest.low,
               volume: latest.volume,
             });
-
+            
+            
             return {
               label: symbol,
               data: stockData.map((entry) => parseFloat(entry.close)).reverse(),
               borderColor: colors[index],
-              backgroundColor: colors[index] + "33",
-              pointRadius: 2,
+              backgroundColor: "rgba(0, 0, 255, 0.3)",
+              pointBackgroundColor: "blue",
               fill: true,
+              tension:0.4,
+              
             };
+            
           });
+
 
           setChartData({ labels, datasets });
           setStockDetails(details);
@@ -83,12 +100,12 @@ export default function Style() {
     fetchData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>Loading... dashboard</div>;
   if (error) return <div>Error: {error}</div>;
 
-  // Find selected stock details
-  const selectedStock = stockDetails.find((stock) => stock.symbol === selectedSymbol);
 
+  const selectedStock = stockDetails.find((stock) => stock.symbol === selectedSymbol);
+  
   return (
     <div className="container">
       <header>
@@ -96,13 +113,14 @@ export default function Style() {
       </header>
       <aside>
         <div>
-        <img src="/images/logo.png" alt="Stock Market Overview" width="120" height="100" />
+        <img src="/images/logo3.png" alt="Stock Market Overview" width="120" height="100" style={{marginLeft:"10px"}}/>
         </div>
         <div className="board">
           <div>DASHBOARD</div>
         </div>
         <div className="menu">
-          MAIN MENU
+          <div>MAIN MENU</div>
+          
           <ul>
             <li>Home</li>
             <li>Exchange</li>
@@ -113,7 +131,8 @@ export default function Style() {
         </div>
 
         <div className="support">
-          SUPPORT
+          <div>SUPPORT</div>
+          
           <ul>
             <li>Community</li>
             <li>Help & Support</li>
@@ -123,10 +142,28 @@ export default function Style() {
       <main>
         <div className="stock-p">Your Stock Portfolio</div>
         <div className="portfolio-img">
-            <img src="/images/portfolio-card.png" alt="Stock Market Overview" width="230" height="100" />
-            <img src="/images/portfolio.png" alt="Stock Market Overview" width="230" height="100" />
-            <img src="/images/portfolio-card.png" alt="Stock Market Overview" width="230" height="100" />
-            <img src="/images/portfolio.png" alt="Stock Market Overview" width="230" height="100" />
+        <div style={{ display: "flex", gap: "15px", marginBottom: "20px" }}>
+        <div style={{ background: "#fff", padding: "15px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.5)", borderRadius: "8px", flex: "1" }}>
+          <p style={{ color: "#666" }}>📘 Value</p>
+          <h3 style={{ fontSize: "24px", fontWeight: "bold" }}>$178,326.48</h3>
+          <p style={{ color: "#999" }}>$115,312.13 invested</p>
+        </div>
+        <div style={{ background: "#fff", padding: "15px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.5)", borderRadius: "8px", flex: "1" }}>
+          <p style={{ color: "#666" }}>💰 Total Profit</p>
+          <h3 style={{ fontSize: "24px", fontWeight: "bold", color: "green" }}>+$63,014.35</h3>
+          <p style={{ color: "red" }}>-$1,354.29 ▼ 0.75% daily</p>
+        </div>
+        <div style={{ background: "#fff", padding: "15px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.5)", borderRadius: "8px", flex: "1" }}>
+          <p style={{ color: "#666" }}>📊 IRR</p>
+          <h3 style={{ fontSize: "24px", fontWeight: "bold" }}>9.86%</h3>
+          <p style={{ color: "#999" }}>8.46% current holdings</p>
+        </div>
+        <div style={{ background: "#fff", padding: "15px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.5)", borderRadius: "8px", flex: "1" }}>
+          <p style={{ color: "#666" }}>🌱 Passive Income</p>
+          <h3 style={{ fontSize: "24px", fontWeight: "bold" }}>2.5%</h3>
+          <p style={{ color: "#999" }}>$3,726.53 annually</p>
+        </div>
+        </div>
         </div>
         <div className="api-call">
           <div>
